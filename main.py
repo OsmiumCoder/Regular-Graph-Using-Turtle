@@ -1,6 +1,6 @@
 import turtle
 import math
-# add a thing
+
 
 def graph(n):
     for line in range(1, n):
