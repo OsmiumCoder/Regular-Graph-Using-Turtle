@@ -28,16 +28,26 @@ def draw_graph(n):
 
     # list of positions of all vertices
     # which must still be travelled to
-    positions = []
+    positions: list[tuple[float, float]] = []
 
+    # ALL INITIAL VERTICES
     for line in range(1, n):
+        # calculate the distance to rotate from the starting point tangent line
         angle = 180 / n
+
+        # calculate the arc length based on number of vertices
+        # and based on what line we are drawing
         arc = circumference / n * line
+
+        # calculate chord length, or length of line
+        # see also: https://en.wikipedia.org/wiki/Chord_(geometry)
         chord = 2 * rad * math.sin(arc/(2*rad))
 
         turtle_pen.left(angle)
         turtle_pen.forward(chord)
+
         positions.append(turtle_pen.position())
+
         turtle_pen.penup()
         turtle_pen.backward(chord)
         turtle_pen.pendown()
