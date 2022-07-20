@@ -2,7 +2,7 @@ from turtle import Turtle, screensize, getscreen, done
 import math
 
 
-def draw_graph(n):
+def draw_graph(vertices):
     # radius and circumference of the circle which the regular graph will be contained in
     rad = 250
     circumference = 2 * math.pi * rad
@@ -12,7 +12,7 @@ def draw_graph(n):
     screen.clear()  # delete arrow sprite
 
     turtle_pen = Turtle()  # init a turtle to draw with
-    # turtle_pen.hideturtle()  # hide the turtle while drawing
+    turtle_pen.hideturtle()  # hide the turtle while drawing
     turtle_pen.speed(10)  # max speed
     turtle_pen.penup()  # up to not draw straight line
 
@@ -28,37 +28,54 @@ def draw_graph(n):
 
     # list of positions of all vertices
     # which must still be travelled to
-    positions: list[tuple[float, float]] = []
+    positions = []
+
+    # calculate the degrees to rotate
+    # each time we draw a new line
+    angle = 180 / vertices
 
     # ALL INITIAL VERTICES
-    for line in range(1, n):
-        # calculate the distance to rotate from the starting point tangent line
-        angle = 180 / n
-
+    # draw all lines from initial point
+    # and save positions of all the other vertices
+    for line in range(1, vertices):
         # calculate the arc length based on number of vertices
         # and based on what line we are drawing
-        arc = circumference / n * line
+        arc = circumference / vertices * line
 
         # calculate chord length, or length of line
         # see also: https://en.wikipedia.org/wiki/Chord_(geometry)
-        chord = 2 * rad * math.sin(arc/(2*rad))
+        chord = 2 * rad * math.sin(arc / (2 * rad))
 
+        # rotate to the angle the next chord is at
+        # and draw the chord
         turtle_pen.left(angle)
         turtle_pen.forward(chord)
 
+        # save position after motion
+        # the endpoint of each chord is the location for a vertex
         positions.append(turtle_pen.position())
 
+        # pen up and return to original position
+        # and pen down to prepare for next line
         turtle_pen.penup()
         turtle_pen.backward(chord)
         turtle_pen.pendown()
 
-    for nextVertex in range(0, len(positions)):
+    # CONNECT ALL VERTICES TO EACH OTHER
+    # move to the next vertex
+    # and draw all its chords
+    for vertex in range(0, len(positions)):
+        # pen up and move to next vertex in queue
         turtle_pen.penup()
         turtle_pen.goto(positions[0])
-        for nextLine in range(0, len(positions)):
+
+        # draw all chords for current vertex
+        for next_vertex in positions:
+
             turtle_pen.pendown()
-            turtle_pen.goto(positions[nextLine])
+            turtle_pen.goto(next_vertex)
             turtle_pen.penup()
+
             if len(positions) > 2:
                 turtle_pen.goto(positions[0])
                 turtle_pen.pendown()
