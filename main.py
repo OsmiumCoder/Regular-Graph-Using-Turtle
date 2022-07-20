@@ -1,5 +1,5 @@
-from turtle import Turtle, screensize, getscreen, done, TurtleScreen
 from math import pi, sin
+from turtle import Turtle, screensize, getscreen, done, TurtleScreen
 
 
 def draw_graph(vertices: int) -> None:
@@ -96,7 +96,7 @@ def main() -> None:
 
     # run regular graph algorithm
     draw_graph(num_of_vertex)
-    
+
     done()  # turtle event loop
 
 
