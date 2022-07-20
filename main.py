@@ -71,14 +71,13 @@ def draw_graph(vertices):
 
         # draw all chords for current vertex
         for next_vertex in positions:
-
+            # pen down and draw chord to next vertex
             turtle_pen.pendown()
             turtle_pen.goto(next_vertex)
-            turtle_pen.penup()
 
-            if len(positions) > 2:
-                turtle_pen.goto(positions[0])
-                turtle_pen.pendown()
+            # pen up and return to current vertex
+            turtle_pen.penup()
+            turtle_pen.goto(positions[0])
 
         del positions[0]
 
