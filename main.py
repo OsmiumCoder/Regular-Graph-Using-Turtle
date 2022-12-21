@@ -13,7 +13,7 @@ def draw_graph(vertices: int) -> None:
 
     turtle_pen: Turtle = Turtle()  # init a turtle to draw with
     turtle_pen.hideturtle()  # hide the turtle while drawing
-    turtle_pen.speed(10)  # max speed
+    turtle_pen.speed(0)  # max speed
     turtle_pen.penup()  # up to not draw any lines during setup
 
     # go to x coordinate equal to the radius of the circle the graph is contained in
